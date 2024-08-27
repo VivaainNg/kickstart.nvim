@@ -282,6 +282,20 @@ require('lazy').setup({
         },
         defaults = {
           path_display = { 'smart' },
+
+            -- Ignore following file types/patterns when using telescope
+            file_ignore_patterns = {
+              '%.xlsx',
+              '%.jpg',
+              '%.png',
+              '%.webp',
+              '%.pdf',
+              '%.min.js',
+              '%.min.js.br',
+              '%.min.js.gz',
+              '%.js.br',
+              '%.js.gz',
+            },
         },
       }
 
