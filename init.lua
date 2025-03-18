@@ -283,19 +283,19 @@ require('lazy').setup({
         defaults = {
           path_display = { 'smart' },
 
-            -- Ignore following file types/patterns when using telescope
-            file_ignore_patterns = {
-              '%.xlsx',
-              '%.jpg',
-              '%.png',
-              '%.webp',
-              '%.pdf',
-              '%.min.js',
-              '%.min.js.br',
-              '%.min.js.gz',
-              '%.js.br',
-              '%.js.gz',
-            },
+          -- Ignore following file types/patterns when using telescope
+          file_ignore_patterns = {
+            '%.xlsx',
+            '%.jpg',
+            '%.png',
+            '%.webp',
+            '%.pdf',
+            '%.min.js',
+            '%.min.js.br',
+            '%.min.js.gz',
+            '%.js.br',
+            '%.js.gz',
+          },
         },
       }
 
@@ -823,6 +823,22 @@ require('lazy').setup({
       --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    end,
+  },
+  { -- For toggling terminal(s)
+    'akinsho/toggleterm.nvim',
+    config = function()
+      require('toggleterm').setup {
+        -- You can set your custom options here.
+        -- For example, to map <leader>\ to toggle the terminal:
+        open_mapping = [[<leader>\]], -- Change the keybinding here
+        direction = 'float', -- Options: "vertical", "horizontal", "tab", or "float"
+        float_opts = {
+          border = 'curved', -- Options: "single", "double", "curved", etc.
+        },
+        shade_terminals = true,
+        shading_factor = 2, -- Adjust the terminal shading (optional)
+      }
     end,
   },
 
