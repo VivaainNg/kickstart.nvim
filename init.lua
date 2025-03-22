@@ -1,3 +1,10 @@
+-- disable netrw at the very start of your init.lua (To properly enabled nvim-tree)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
 -- To automatically set pyenv based on available local pyenv version in current project's directory(if there's any)
 vim.env.PYENV_VERSION = vim.fn.system('pyenv version'):match '(%S+)%s+%(.-%)'
 
@@ -85,7 +92,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>x', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -110,6 +117,10 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Keybindings for Nvim-tree file explorer
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>f", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -552,7 +563,7 @@ require('lazy').setup({
     lazy = false,
     keys = {
       {
-        '<leader>f',
+        '<leader>o',
         function()
           require('conform').format { async = true, lsp_fallback = true }
         end,
@@ -839,6 +850,41 @@ require('lazy').setup({
         shade_terminals = true,
         shading_factor = 2, -- Adjust the terminal shading (optional)
       }
+    end,
+  },
+  { -- For file explorer
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup({
+        renderer = {
+          icons = {
+            glyphs = {
+              default = "📄",
+              symlink = "🔗",
+              git = {
+                unstaged = "✏️",
+                unmerged = "🔀",
+                renamed = "🔄",
+                deleted = "❌",
+                untracked = "🆕",
+                ignored = "🚫",
+              },
+              folder = {
+                default = "📁",
+                open = "📂",
+                empty = "🗂️",
+                empty_open = "📂",
+                symlink = "🔗",
+              },
+            },
+          },
+        },
+      })
     end,
   },
 
