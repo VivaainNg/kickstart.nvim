@@ -879,6 +879,9 @@ require('lazy').setup({
           },
           default = true, -- Use default icons for other file types
         },
+        view = {
+          width = 45,
+        },
         renderer = {
           icons = {
             glyphs = {
